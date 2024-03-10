@@ -1,7 +1,9 @@
-import openai
 import os
 
-def clean_text(text):
+import openai
+
+
+def clean_text(text: str) -> str:
     """Remove unwanted Markdown and other formatting."""
     # Replace known unwanted characters
     cleaned_text = text.replace("```python", "").replace("```", "").strip()
@@ -9,7 +11,8 @@ def clean_text(text):
     cleaned_text = cleaned_text.strip('*').strip()
     return cleaned_text
 
-def extract_details_from_response(response_text):
+
+def extract_details_from_response(response_text: str) -> tuple:
     functionality_marker = "Functionality Description:"
     code_marker = "SKiDL Python Code:"
     components_marker = "Components List:"
@@ -34,14 +37,16 @@ def extract_details_from_response(response_text):
         print("Error extracting details:", e)
         return None, None, None
 
-def get_openai_response(description):
+
+def get_openai_response(description: str) -> str:
     openai.api_key = os.getenv("OPENAI_API_KEY")
     enhanced_prompt = f"Based on this description: '{description}', describe the functionality, generate SKiDL Python code, and list all components needed. Use 'Functionality Description:', 'SKiDL Python Code:', and 'Components List:' as markers for each section."
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant adept at electronic circuit design with SKiDL. Clearly separate the functionality description, SKiDL code, and components list using the provided markers."},
+            {"role": "system",
+             "content": "You are a helpful assistant adept at electronic circuit design with SKiDL. Clearly separate the functionality description, SKiDL code, and components list using the provided markers."},
             {"role": "user", "content": enhanced_prompt}
         ]
     )
