@@ -1,10 +1,10 @@
+import os
 import openai
 from config import  MODEL, FUNCTIONALITY_MARKER, CODE_MARKER, COMPONENTS_MARKER, SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
-import os
 # Set the OpenAI API key from the configuration
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
-def clean_text(text):
+def clean_text(text: str) -> str:
     """Remove unwanted Markdown and other formatting."""
     # Replace known unwanted characters
     cleaned_text = text.replace("```python", "").replace("```", "").strip()
@@ -12,8 +12,11 @@ def clean_text(text):
     cleaned_text = cleaned_text.strip('*').strip()
     return cleaned_text
 
-def extract_details_from_response(response_text):
-    """Extract functionality description, SKiDL code, and components list from OpenAI response."""
+
+def extract_details_from_response(response_text: str) -> tuple:
+    functionality_marker = "Functionality Description:"
+    code_marker = "SKiDL Python Code:"
+    components_marker = "Components List:"
     try:
         # Find and extract the segments of interest
         functionality_start = response_text.index(FUNCTIONALITY_MARKER) + len(FUNCTIONALITY_MARKER)
@@ -35,18 +38,16 @@ def extract_details_from_response(response_text):
         print("Error extracting details:", e)
         return None, None, None
 
-def get_openai_response(description):
-    """Generate a response from the OpenAI API based on the provided description."""
-    # Format the system and user prompts with the provided description
-    system_prompt = SYSTEM_PROMPT
-    user_prompt = USER_PROMPT_TEMPLATE.format(description=description)
 
-    # Generate the response using OpenAI's Chat Completion API
+def get_openai_response(description: str) -> str:
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    enhanced_prompt = f"Based on this description: '{description}', describe the functionality, generate SKiDL Python code, and list all components needed. Use 'Functionality Description:', 'SKiDL Python Code:', and 'Components List:' as markers for each section."
+
     response = openai.ChatCompletion.create(
         model=MODEL,
         messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": USER_PROMPT_TEMPLATE}
         ]
     )
 
