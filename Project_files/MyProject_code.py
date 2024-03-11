@@ -12,7 +12,7 @@ led[2] += net_gnd
 
 # Define waveforms for blinking
 net_blink = Net('BLINK')
-Vpulse(net_blink, 0, 1, 1ms, 1ms)
+
 
 led[1] & net_blink & Net()
 
