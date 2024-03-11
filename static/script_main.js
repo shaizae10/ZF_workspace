@@ -7,3 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+document.addEventListener('DOMContentLoaded', (event) => {
+    const conversation = document.querySelector('.conversation');
+    conversation.scrollTop = conversation.scrollHeight;
+});

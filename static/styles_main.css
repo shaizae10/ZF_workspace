@@ -8,14 +8,22 @@
     --input-background: #292929;
     --message-user-bg: #007bff;
     --message-system-bg: #666;
+    --background-image-url: url('../static/background.png');
 }
+
 body {
     font-family: 'Source Code Pro', monospace;
     margin: 0;
     padding: 0;
-    background-color: var(--background-color);
+    background-color: var(--background-color); /* Keep as a fallback */
+    background-image: var(--background-image-url); /* Use the image as a background */
+    background-size: cover; /* Cover the entire space */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
     color: var(--text-color);
+    min-height: 100vh; /* Make sure it covers the full viewport height */
 }
+
 .container {
     max-width: 800px;
     margin: 50px auto;
@@ -23,19 +31,28 @@ body {
     background-color: #1e1e1e;
     border-radius: 10px;
     border: 1px solid var(--primary-color);
+    margin-top: 150px;
+    background-color: rgba(0, 0, 0, 0.6); /* black with 60% opacity */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* slight white border for some depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* subtle shadow for 3D effect */
+    backdrop-filter: blur(10px); /* this will give a frosted glass effect */
 }
+
 h1 {
     text-align: center;
     color: var(--primary-color);
 }
+
 form {
     margin: 20px 0;
 }
+
 label {
     display: block;
     margin-bottom: 10px;
     text-align: center;
 }
+
 input[type="submit"], .btn {
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     border: none;
@@ -49,6 +66,7 @@ input[type="submit"], .btn {
     margin: 10px auto;
     font-size: 1rem;
 }
+
 input[type="submit"]:hover, .btn:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px var(--primary-color);
@@ -68,9 +86,6 @@ textarea {
     font-family: 'Roboto', sans-serif; /* Setting the font to Roboto */
 }
 
-
-
-
 .conversation {
     background-color: var(--chat-background);
     padding: 10px;
@@ -80,7 +95,10 @@ textarea {
     margin-top: 20px;
     overflow-y: auto;
     max-height: 400px;
+    overflow-y: auto; /* Allows for scrolling */
+    max-height: 400px; /* Adjust the max-height as necessary */
 }
+
 .conversation li {
     padding: 10px;
     margin-bottom: 10px;
@@ -90,6 +108,7 @@ textarea {
     max-width: 70%;
     word-wrap: break-word;
 }
+
 .user, .user-message {
     color: var(--text-color);
     background-color: var(--message-user-bg);
@@ -98,12 +117,14 @@ textarea {
     margin-left: auto;
     border-radius: 10px;
 }
+
 .system, .system-message {
     color: var(--text-color);
     background-color: var(--message-system-bg);
     text-align: left;
     border-radius: 10px;
 }
+
 .instructions {
     display: flex;
     flex-direction: column;
@@ -112,7 +133,15 @@ textarea {
     max-width: 1200px;
     margin: 50px auto;
     text-align: center;
+    margin-top: 500px; /* or adjust this as needed */
+    font-size: 1.7rem;
+    background-color: rgba(255, 255, 255, 0.1); /* slightly white transparent background */
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--text-color); /* assuming your text color is set in the root and is high contrast */
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5); /* subtle text shadow for better legibility */
 }
+
 .instructions ul {
     list-style-position: inside;
     text-align: left;
