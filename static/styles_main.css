@@ -1,0 +1,121 @@
+:root {
+    --background-color: #121212;
+    --primary-color: #0af;
+    --secondary-color: #08f;
+    --text-color: #fff;
+    --accent-color: #ff4081;
+    --chat-background: #242424;
+    --input-background: #292929;
+    --message-user-bg: #007bff;
+    --message-system-bg: #666;
+}
+body {
+    font-family: 'Source Code Pro', monospace;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+}
+form {
+    margin: 20px 0;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}
+input[type="submit"], .btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: var(--text-color);
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+    display: block;
+    width: auto;
+    margin: 10px auto;
+    font-size: 1rem;
+}
+input[type="submit"]:hover, .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+textarea {
+    width: 90%;
+    padding: 10px;
+    background-color: var(--input-background);
+    border: 1px solid var(--primary-color);
+    color: var(--text-color);
+    border-radius: 5px;
+    resize: vertical;
+    margin: 0 auto 10px;
+    display: block;
+    font-size: 1.1rem;
+    font-family: 'Roboto', sans-serif; /* Setting the font to Roboto */
+}
+
+
+
+
+.conversation {
+    background-color: var(--chat-background);
+    padding: 10px;
+    border-radius: 5px;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+}
+.conversation li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    background-color: var(--message-system-bg);
+    position: relative;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+.user, .user-message {
+    color: var(--text-color);
+    background-color: var(--message-user-bg);
+    align-self: flex-end;
+    text-align: right;
+    margin-left: auto;
+    border-radius: 10px;
+}
+.system, .system-message {
+    color: var(--text-color);
+    background-color: var(--message-system-bg);
+    text-align: left;
+    border-radius: 10px;
+}
+.instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 50px auto;
+    text-align: center;
+}
+.instructions ul {
+    list-style-position: inside;
+    text-align: left;
+    max-width: 600px;
+    padding: 0;
+}

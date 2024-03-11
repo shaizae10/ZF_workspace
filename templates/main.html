@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Gadget Generator Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_main.css') }}">
+</head>
+<body>
+    <div class="instructions">
+        <h2>How to Use the Gadget Generator Chat</h2>
+        <p>Welcome to the Gadget Generator Chat! Follow these steps to interact with the chatbot:</p>
+        <ul>
+            <li>Type in your gadget idea in the text area provided.</li>
+            <li>Click the "🚀 Generate" button or Enter on the keyboard to submit your idea to the bot or to improve it.</li>
+            <li>The bot will respond with feedback on your gadget idea.</li>
+            <li>You can then choose to "✅ Approve" the idea or "🔄 Reset Conversation" to start over.</li>
+        </ul>
+    </div>
+    <div class="container">
+        <h1>🤖 Gadget Generator Chat</h1>
+
+        <form method="POST">
+            <label for="description">Hey there! 👋 What gadget functionality are you thinking about?</label>
+            <textarea id="description" name="description" rows="4" required placeholder="Enter your gadget's functionality description here..."></textarea>
+            <input type="submit" name="submit" value="🚀 Generate" class="btn">
+        </form>
+
+        <form method="POST" action="/">
+            <input type="submit" name="reset" value="🔄 Reset Conversation" class="btn">
+        </form>
+
+        <hr>
+        <h2>Conversation:</h2>
+        <ul class="conversation">
+            {% for item in session.conversation %}
+                <li class="user-message">🤓Amazing and creative user: {{ item.user }}</li>
+                {% if item.system %}
+                    <li class="system-message">
+                        🤖GadBot: {{ item.system }}
+                        <!-- Include the Approve button for each bot response -->
+                        <form method="POST" action="{{ url_for('index') }}">
+                            <input type="hidden" name="message_to_approve" value="{{ loop.index }}">
+                            <input type="submit" name="approve" value="✅ Approve the bot understanding" class="btn">
+                        </form>
+                        
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <script src="{{ url_for('static', filename='script_main.js') }}"></script>
+</body>
+</html>

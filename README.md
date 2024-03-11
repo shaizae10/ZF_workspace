@@ -24,7 +24,7 @@
 
 ### Todo
 
-- [ ] Move approve bottun to the answer text
+- [x] Move approve bottun to the answer text
 
 ### In Progress
 
