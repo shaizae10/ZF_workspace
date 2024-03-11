@@ -135,8 +135,7 @@ textarea {
     text-align: center;
     margin-top: 500px; /* or adjust this as needed */
     font-size: 1.7rem;
-    background-color: rgba(255, 255, 255, 0.1); /* slightly white transparent background */
-    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1); /* slightly black transparent background */ 
     border-radius: 10px;
     color: var(--text-color); /* assuming your text color is set in the root and is high contrast */
     text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5); /* subtle text shadow for better legibility */
