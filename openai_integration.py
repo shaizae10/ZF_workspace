@@ -14,18 +14,12 @@ def load_configuration(config_module_name):
         'USER_PROMPT_TEMPLATE': config_module.USER_PROMPT_TEMPLATE
     }
     return config
-# Function to read API key from file
-def read_api_key(file_path):
-    with open(file_path, 'r') as file:
-        api_key = file.read().strip()  # Read the content and remove leading/trailing whitespace
-    return api_key
 
 # OpenAIElectronicDesignAssistant Class
 class OpenAIapi:
     def __init__(self, config):
         self.model = config['MODEL']
-        api_file_path = 'ZF_workspace/API.txt'
-        self.api_key = read_api_key(api_file_path)
+        self.api_key = os.getenv('API_KEY')
         openai.api_key = self.api_key
 
         self.functionality_marker = config['FUNCTIONALITY_MARKER']
