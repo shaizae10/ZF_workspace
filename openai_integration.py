@@ -1,54 +1,65 @@
 import os
 import openai
-from config import  MODEL, FUNCTIONALITY_MARKER, CODE_MARKER, COMPONENTS_MARKER, SYSTEM_PROMPT, USER_PROMPT_TEMPLATE
-# Set the OpenAI API key from the configuration
-openai.api_key = os.getenv('OPENAI_API_KEY')
+import importlib
 
-def clean_text(text: str) -> str:
-    """Remove unwanted Markdown and other formatting."""
-    # Replace known unwanted characters
-    cleaned_text = text.replace("```python", "").replace("```", "").strip()
-    # Further strip leading and trailing asterisks and whitespace
-    cleaned_text = cleaned_text.strip('*').strip()
-    return cleaned_text
+# Dynamic Configuration Loader
+def load_configuration(config_module_name):
+    config_module = importlib.import_module(config_module_name)
+    config = {
+        'MODEL': config_module.MODEL,
+        'FUNCTIONALITY_MARKER': config_module.FUNCTIONALITY_MARKER,
+        'CODE_MARKER': config_module.CODE_MARKER,
+        'COMPONENTS_MARKER': config_module.COMPONENTS_MARKER,
+        'SYSTEM_PROMPT': config_module.SYSTEM_PROMPT,
+        'USER_PROMPT_TEMPLATE': config_module.USER_PROMPT_TEMPLATE
+    }
+    return config
 
+# OpenAIElectronicDesignAssistant Class
+class OpenAIapi:
+    def __init__(self, config):
+        self.model = config['MODEL']
+        self.api_key = os.getenv('OPENAI_API_KEY')
+        openai.api_key = self.api_key
 
-def extract_details_from_response(response_text: str) -> tuple:
-    functionality_marker = "Functionality Description:"
-    code_marker = "SKiDL Python Code:"
-    components_marker = "Components List:"
-    try:
-        # Find and extract the segments of interest
-        functionality_start = response_text.index(FUNCTIONALITY_MARKER) + len(FUNCTIONALITY_MARKER)
-        code_start = response_text.index(CODE_MARKER)
-        functionality_description = response_text[functionality_start:code_start].strip()
+        self.functionality_marker = config['FUNCTIONALITY_MARKER']
+        self.code_marker = config['CODE_MARKER']
+        self.components_marker = config['COMPONENTS_MARKER']
+        self.system_prompt = config['SYSTEM_PROMPT']
+        self.user_prompt_template = config['USER_PROMPT_TEMPLATE']
 
-        code_end = response_text.index(COMPONENTS_MARKER)
-        code_segment = response_text[code_start + len(CODE_MARKER):code_end].strip()
+    @staticmethod
+    def clean_text(text: str) -> str:
+        cleaned_text = text.replace("```python", "").replace("```", "").strip()
+        cleaned_text = cleaned_text.strip('*').strip()
+        return cleaned_text
 
-        components_segment = response_text[code_end + len(COMPONENTS_MARKER):].strip()
+    def extract_details_from_response(self, response_text: str) -> tuple:
+        try:
+            functionality_start = response_text.index(self.functionality_marker) + len(self.functionality_marker)
+            code_start = response_text.index(self.code_marker)
+            functionality_description = response_text[functionality_start:code_start].strip()
 
-        # Clean up extracted segments
-        functionality_description = clean_text(functionality_description)
-        code = clean_text(code_segment)
-        components = clean_text(components_segment)
+            code_end = response_text.index(self.components_marker)
+            code_segment = response_text[code_start + len(self.code_marker):code_end].strip()
 
-        return functionality_description, code, components
-    except ValueError as e:
-        print("Error extracting details:", e)
-        return None, None, None
+            components_segment = response_text[code_end + len(self.components_marker):].strip()
 
+            functionality_description = self.clean_text(functionality_description)
+            code = self.clean_text(code_segment)
+            components = self.clean_text(components_segment)
 
-def get_openai_response(description: str) -> str:
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-    enhanced_prompt = f"Based on this description: '{description}', describe the functionality, generate SKiDL Python code, and list all components needed. Use 'Functionality Description:', 'SKiDL Python Code:', and 'Components List:' as markers for each section."
+            return functionality_description, code, components
+        except ValueError as e:
+            print("Error extracting details:", e)
+            return None, None, None
 
-    response = openai.ChatCompletion.create(
-        model=MODEL,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": USER_PROMPT_TEMPLATE}
-        ]
-    )
-
-    return response.choices[0].message['content']
+    def get_openai_response(self, description: str) -> str:
+        response = openai.ChatCompletion.create(
+            model=self.model,
+            messages=[
+                {"role": "system", "content": self.system_prompt},
+                {"role": "user", "content": self.user_prompt_template.format(description=description)}
+            ]
+        )
+        return response.choices[0].message['content']
