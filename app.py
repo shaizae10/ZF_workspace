@@ -1,14 +1,12 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-
 from openai_integration import extract_details_from_response, get_openai_response
 from file_writer import write_files
 import os
 
+FILES_DIRECTORY = 'Project_files'  # Directory to store generated files
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
-
-
-FILES_DIRECTORY = 'Project_files'  # Directory to store generated files
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -53,7 +51,7 @@ def index():
                 session['code'] = code
                 session['components'] = components
 
-    return render_template('index.html', session=session)
+    return render_template('main.html', session=session)
 
 @app.route('/approve', methods=['GET', 'POST'])
 def approve():
@@ -68,7 +66,6 @@ def approve():
             return render_template('success.html')
 
     return render_template('approve.html')
-
 
 @app.route('/reset', methods=['POST'])
 def reset():
