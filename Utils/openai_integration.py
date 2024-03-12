@@ -1,18 +1,23 @@
 import openai
-
+import os
 
 # OpenAIElectronicDesignAssistant Class
 class OpenAiApi:
     def __init__(self, config):
         self.model = config['MODEL']
-        self.api_key = config["API_KEY"]
+        
+        # Read API key from a file
+        api_key_path = os.path.join(os.path.dirname(__file__), "..", "keys", "openai_api_key.txt")
+        with open(api_key_path, "r") as file:
+            self.api_key = file.read().strip()
+        
         openai.api_key = self.api_key
 
         self.functionality_marker = config['FUNCTIONALITY_MARKER']
         self.code_marker = config['CODE_MARKER']
         self.components_marker = config['COMPONENTS_MARKER']
-        self.system_prompt ="".join( config['SYSTEM_PROMPT'])
-        self.user_prompt_template ="".join(  config['USER_PROMPT_TEMPLATE'])
+        self.system_prompt = "".join(config['SYSTEM_PROMPT'])
+        self.user_prompt_template = "".join(config['USER_PROMPT_TEMPLATE'])
 
     @staticmethod
     def clean_text(text: str) -> str:
