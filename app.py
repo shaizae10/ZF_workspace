@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, session, redirect, url_for
-from openai_integration import OpenAIapi,load_configuration
-from file_writer import write_files
 import os
+
+from flask import Flask, render_template, request, session, redirect, url_for
+
+from Utils.file_utils import write_files, json_reader
+from Utils.openai_integration import OpenAiApi, load_configuration
 
 FILES_DIRECTORY = 'Project_files'  # Directory to store generated files
 
@@ -9,8 +11,10 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
 config = load_configuration('config_user_int')
+
 # Instantiate your assistant here
-assistant = OpenAIapi(config)
+assistant = OpenAiApi(config)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -26,7 +30,7 @@ def index():
                 shutil.rmtree(FILES_DIRECTORY)
             os.makedirs(FILES_DIRECTORY)
             return redirect(url_for('index'))
-        
+
         elif 'approve' in request.form:
             project_name = request.form.get('project_name', 'MyProject')
             if 'code' in session and 'components' in session:
@@ -44,7 +48,7 @@ def index():
         elif 'description' in request.form:
             description = request.form['description']
             session['conversation'].append({'user': description, 'system': None})
-            
+
             # Use the assistant instance
             response_text = assistant.get_openai_response(description)
             functionality_description, code, components = assistant.extract_details_from_response(response_text)
@@ -55,6 +59,7 @@ def index():
                 session['components'] = components
 
     return render_template('main.html', session=session)
+
 
 @app.route('/approve', methods=['GET', 'POST'])
 def approve():
@@ -69,6 +74,7 @@ def approve():
             return render_template('success.html')
 
     return render_template('approve.html')
+
 
 @app.route('/reset', methods=['POST'])
 def reset():

@@ -10,7 +10,6 @@ COMPONENTS_MARKER = "Components List:"
 # Static text for prompts, broken into shorter lines
 
 
-
 SYSTEM_PROMPT = (
     "You are a helpful assistant adept at electronic circuit design with SKiDL. "
     "Clearly separate the functionality description, SKiDL code, and components list "

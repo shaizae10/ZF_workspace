@@ -1,6 +1,8 @@
-import os
-import openai
 import importlib
+import os
+
+import openai
+
 
 # Dynamic Configuration Loader
 def load_configuration(config_module_name):
@@ -15,8 +17,9 @@ def load_configuration(config_module_name):
     }
     return config
 
+
 # OpenAIElectronicDesignAssistant Class
-class OpenAIapi:
+class OpenAiApi:
     def __init__(self, config):
         self.model = config['MODEL']
         self.api_key = os.getenv('API_KEY')
