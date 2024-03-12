@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from Utils.file_utils import write_files, json_reader
 from Utils.openai_integration import OpenAiApi
 
-FILES_DIRECTORY = 'Project_files'  # Directory to store generated files
+FILES_DIRECTORY = '../Project_files'  # Directory to store generated files
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'

@@ -8,6 +8,7 @@ class OpenAiApi:
         
         # Read API key from a file
         api_key_path = os.path.join(os.path.dirname(__file__), "..", "keys", "openai_api_key.txt")
+
         with open(api_key_path, "r") as file:
             self.api_key = file.read().strip()
         
@@ -18,7 +19,7 @@ class OpenAiApi:
         self.components_marker = config['COMPONENTS_MARKER']
         self.system_prompt = "".join(config['SYSTEM_PROMPT'])
         self.user_prompt_template = "".join(config['USER_PROMPT_TEMPLATE'])
-
+        
     @staticmethod
     def clean_text(text: str) -> str:
         cleaned_text = text.replace("```python", "").replace("```", "").strip()
