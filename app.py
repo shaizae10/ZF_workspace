@@ -1,5 +1,4 @@
 import os
-import webbrowser
 
 from flask import Flask, render_template, request, session, redirect, url_for
 
@@ -74,6 +73,7 @@ def approve():
             with open(components_filename, 'w') as components_file:
                 components_file.write('\n'.join(session['components']))
             return render_template('success.html')
+
     return render_template('approve.html')
 
 
@@ -88,10 +88,5 @@ def reset():
     return redirect(url_for('index'))
 
 
-def open_browser():
-    webbrowser.open_new("http://127.0.0.1:5000")
-
-
 if __name__ == '__main__':
-    open_browser()
-    app.run(debug=False, port=5000)
+    app.run(debug=True)
