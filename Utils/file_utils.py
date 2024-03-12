@@ -16,6 +16,7 @@ def write_files(directory, files):
 
 
 def json_reader(path: str) -> dict:
+    """read json file and return dict"""
     with open(path, "r") as file:
         data = json.load(file)
     return data
