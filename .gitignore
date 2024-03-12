@@ -11,4 +11,9 @@ __pycache__/
 *.xml
 
 openai_api_key.txt
-run_app.sh
+
+/.pytest_chache
+/.of_mac_personal
+components_list.txt
+generated_skidl_code.py
+/order_files
