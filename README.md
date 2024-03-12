@@ -51,3 +51,7 @@ s
 
 ## skidl package for circuit to PCB: 
 https://pypi.org/project/skidl/
+
+
+## Component api
+https://www.oemsecrets.com/api
