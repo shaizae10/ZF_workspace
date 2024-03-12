@@ -11,3 +11,4 @@ __pycache__/
 *.xml
 
 openai_api_key.txt
+run_app.sh
