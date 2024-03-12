@@ -19,7 +19,7 @@ def load_configuration(config_module_name):
 
 
 # OpenAIElectronicDesignAssistant Class
-class OpenAIapi:
+class OpenAiApi:
     def __init__(self, config):
         self.model = config['MODEL']
         self.api_key = os.getenv('API_KEY')

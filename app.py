@@ -2,8 +2,8 @@ import os
 
 from flask import Flask, render_template, request, session, redirect, url_for
 
-from Utils.file_writer import write_files
-from Utils.openai_integration import OpenAIapi, load_configuration
+from Utils.file_utils import write_files, json_reader
+from Utils.openai_integration import OpenAiApi, load_configuration
 
 FILES_DIRECTORY = 'Project_files'  # Directory to store generated files
 
@@ -11,8 +11,9 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
 config = load_configuration('config_user_int')
+
 # Instantiate your assistant here
-assistant = OpenAIapi(config)
+assistant = OpenAiApi(config)
 
 
 @app.route('/', methods=['GET', 'POST'])
