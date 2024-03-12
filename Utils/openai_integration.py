@@ -1,20 +1,4 @@
-import importlib
-
 import openai
-
-
-# Dynamic Configuration Loader
-def load_configuration(config_module_name):
-    config_module = importlib.import_module(config_module_name)
-    config = {
-        'MODEL': config_module.MODEL,
-        'FUNCTIONALITY_MARKER': config_module.FUNCTIONALITY_MARKER,
-        'CODE_MARKER': config_module.CODE_MARKER,
-        'COMPONENTS_MARKER': config_module.COMPONENTS_MARKER,
-        'SYSTEM_PROMPT': config_module.SYSTEM_PROMPT,
-        'USER_PROMPT_TEMPLATE': config_module.USER_PROMPT_TEMPLATE
-    }
-    return config
 
 
 # OpenAIElectronicDesignAssistant Class
@@ -27,8 +11,8 @@ class OpenAiApi:
         self.functionality_marker = config['FUNCTIONALITY_MARKER']
         self.code_marker = config['CODE_MARKER']
         self.components_marker = config['COMPONENTS_MARKER']
-        self.system_prompt = config['SYSTEM_PROMPT']
-        self.user_prompt_template = config['USER_PROMPT_TEMPLATE']
+        self.system_prompt ="".join( config['SYSTEM_PROMPT'])
+        self.user_prompt_template ="".join(  config['USER_PROMPT_TEMPLATE'])
 
     @staticmethod
     def clean_text(text: str) -> str:
