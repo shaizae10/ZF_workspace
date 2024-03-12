@@ -22,7 +22,7 @@ def load_configuration(config_module_name):
 class OpenAiApi:
     def __init__(self, config):
         self.model = config['MODEL']
-        self.api_key = os.getenv('API_KEY')
+        self.api_key = config['API_KEY']
         openai.api_key = self.api_key
 
         self.functionality_marker = config['FUNCTIONALITY_MARKER']
