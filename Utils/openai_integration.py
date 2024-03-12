@@ -30,6 +30,7 @@ class OpenAiApi:
         self.components_marker = config['COMPONENTS_MARKER']
         self.system_prompt = config['SYSTEM_PROMPT']
         self.user_prompt_template = config['USER_PROMPT_TEMPLATE']
+        print()
 
     @staticmethod
     def clean_text(text: str) -> str:
