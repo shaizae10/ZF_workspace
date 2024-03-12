@@ -1,0 +1,18 @@
+{
+"FUNCTIONALITY_MARKER":"Functionality escription:" ,
+  "CODE_MARKER":"SKiDL Python Code:",
+  "SYSTEM_PROMPT":[
+    "You are a helpful assistant adept at electronic circuit design with SKiDL. ",
+    "Clearly separate the functionality description, SKiDL code, and components list ",
+    "using the provided markers."],
+  
+  "USER_PROMPT_TEMPLATE" : [
+    "Based on this description: '{description}', describe the functionality, ",
+    "generate SKiDL Python code, and list all components needed. Use ",
+    "'Functionality Description:', 'SKiDL Python Code:', and 'Components List:' as ",
+    "markers for each section."],
+  "key":"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"
+  
+      
+  
+}
