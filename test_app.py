@@ -4,6 +4,7 @@ import pytest
 
 from app import app
 
+
 @pytest.fixture
 def client():
     app.config['TESTING'] = True
@@ -15,6 +16,7 @@ def client():
     os.close(db_fd)
     os.unlink(app.config['DATABASE'])
 
+
 def test_home_page(client):
     """Test that the home page loads correctly."""
     print("Testing home page loading...")
@@ -22,6 +24,7 @@ def test_home_page(client):
     assert response.status_code == 200
     assert b'Gadget Generator Chat' in response.data
     print("Home page test passed!")
+
 
 def test_reset(client):
     """Test the reset functionality."""
@@ -31,6 +34,7 @@ def test_reset(client):
     response = client.post('/', data={'reset': True}, follow_redirects=True)
     assert response.status_code == 200
     print("Reset functionality test passed!")
+
 
 def test_approval_flow(client):
     """Test the approval flow."""
