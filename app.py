@@ -73,7 +73,6 @@ def approve():
             with open(components_filename, 'w') as components_file:
                 components_file.write('\n'.join(session['components']))
             return render_template('success.html')
-
     return render_template('approve.html')
 
 
