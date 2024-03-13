@@ -32,12 +32,15 @@ class Store:
 
     @property
     def inventory(self):
+        # return copy of inventory
         return deepcopy(self._inventory)
 
     def __len__(self):
+        # return the number of the components
         return self._inventory.shape[0]
 
     def __iter__(self) -> dict:
+        # runs over the components
         for ind in range(self._inventory.shape[0]):
             yield self._inventory.iloc[ind, :].to_dict()
 
