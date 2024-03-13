@@ -8,6 +8,9 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 5000
 
 CMD [ "python3", "-m" , "flask", "run", "8000"]
+
+ENTRYPOINT ["python3", "-m","http.setver"]
+CMD ["5000"]

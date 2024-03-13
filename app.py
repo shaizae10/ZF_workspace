@@ -1,6 +1,5 @@
 import os
 import webbrowser
-from threading import Thread
 
 from flask import Flask, render_template, request, session, redirect, url_for
 
@@ -94,7 +93,5 @@ def open_browser():
 
 
 if __name__ == '__main__':
-    Thread(target=open_browser).start()
+    open_browser()
     app.run(debug=False, port=5000)
-
-
