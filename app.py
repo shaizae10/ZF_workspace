@@ -1,4 +1,6 @@
 import os
+import webbrowser
+from threading import Thread
 
 from flask import Flask, render_template, request, session, redirect, url_for
 
@@ -10,8 +12,8 @@ FILES_DIRECTORY = 'Project_files'  # Directory to store generated files
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
-#config = load_configuration('config_user_int')
-config= json_reader(os.path.join(os.path.dirname(__file__),"Utils","metadata.json"))
+# config = load_configuration('config_user_int')
+config = json_reader(os.path.join(os.path.dirname(__file__), "Utils", "metadata.json"))
 
 # Instantiate your assistant here
 assistant = OpenAiApi(config)
@@ -87,5 +89,12 @@ def reset():
     return redirect(url_for('index'))
 
 
+def open_browser():
+    webbrowser.open_new("http://127.0.0.1:5000")
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    Thread(target=open_browser).start()
+    app.run(debug=False, port=5000)
+
+
