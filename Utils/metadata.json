@@ -1,7 +1,7 @@
 {
   "MODEL" : "gpt-3.5-turbo",
   "COMPONENTS_MARKER" : "Components List:",
-"FUNCTIONALITY_MARKER":"Functionality escription:" ,
+  "FUNCTIONALITY_MARKER":"Functionality Description:" ,
   "CODE_MARKER":"SKiDL Python Code:",
   "SYSTEM_PROMPT":[
     "You are a helpful assistant adept at electronic circuit design with SKiDL. ",
@@ -12,9 +12,6 @@
     "Based on this description: '{description}', describe the functionality, ",
     "generate SKiDL Python code, and list all components needed. Use ",
     "'Functionality Description:', 'SKiDL Python Code:', and 'Components List:' as ",
-    "markers for each section."],
-  "API_KEY":"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"
-  
-      
+    "markers for each section."]
   
 }

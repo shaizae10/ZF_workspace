@@ -5,13 +5,18 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from Utils.file_utils import write_files, json_reader
 from Utils.openai_integration import OpenAiApi
 
-FILES_DIRECTORY = 'Project_files'  # Directory to store generated files
+# Adjust the path to your needs, considering the execution context
+FILES_DIRECTORY = 'order_files'
 
+# Ensure FILES_DIRECTORY exists
+if not os.path.exists(FILES_DIRECTORY):
+    os.makedirs(FILES_DIRECTORY)
+    
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
-#config = load_configuration('config_user_int')
-config= json_reader(os.path.join(os.path.dirname(__file__),"Utils","metadata.json"))
+
+config = json_reader(os.path.join(os.path.dirname(__file__), "Utils", "metadata.json"))
 
 # Instantiate your assistant here
 assistant = OpenAiApi(config)
@@ -72,9 +77,10 @@ def approve():
                 code_file.write(session['code'])
             with open(components_filename, 'w') as components_file:
                 components_file.write('\n'.join(session['components']))
-            return render_template('success.html')
+            
+            return redirect(url_for('index'))
 
-    return render_template('approve.html')
+    return render_template('main.html')  # Adjust if you have a specific template for approval
 
 
 @app.route('/reset', methods=['POST'])
@@ -89,4 +95,4 @@ def reset():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
