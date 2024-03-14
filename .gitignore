@@ -9,3 +9,14 @@ __pycache__/
 .DS_Store
 *.iml
 *.xml
+
+openai_api_key.txt
+
+/.pytest_chache
+/.of_mac_personal
+components_list.txt
+generated_skidl_code.py
+/order_files
+components_api_key.txt
+
+venv
