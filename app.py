@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
 
-config = json_reader(os.path.join(os.path.dirname(__file__), "Utils", "metadata.json"))
+# config = json_reader(os.path.join(os.path.dirname(__file__), "Utils", "metadata.json"))
 # config = load_configuration('config_user_int')
 config = json_reader(os.path.join(os.path.dirname(__file__), "Utils", "metadata.json"))
 
