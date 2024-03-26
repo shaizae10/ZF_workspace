@@ -1,4 +1,5 @@
 import os
+import webbrowser
 
 from flask import Flask, render_template, request, session, redirect, url_for
 
@@ -16,8 +17,6 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 
 
-# config = json_reader(os.path.join(os.path.dirname(__file__), "Utils", "metadata.json"))
-# config = load_configuration('config_user_int')
 config = json_reader(os.path.join(os.path.dirname(__file__), "Utils", "metadata.json"))
 
 # Instantiate your assistant here
@@ -79,8 +78,7 @@ def approve():
                 code_file.write(session['code'])
             with open(components_filename, 'w') as components_file:
                 components_file.write('\n'.join(session['components']))
-            
-            return redirect(url_for('index'))
+
 
     return render_template('main.html')  # Adjust if you have a specific template for approval
 
@@ -97,5 +95,12 @@ def reset():
     return redirect(url_for('index'))
 
 
+def open_browser():
+    webbrowser.open_new("http://127.0.0.1:5000")
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+
+    open_browser()
+    app.run(debug=False, port=5000)
+
